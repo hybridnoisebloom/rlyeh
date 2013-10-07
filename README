@@ -1,0 +1,16 @@
+R'lyeh
+
+a game by Segmentation Fault Technologies
+
+installation:
+- install Python
+- install PySFML
+- just run "python -BOO rlyeh.py" to play the game
+
+credits:
+code, design, music: draven "segfault" stedman
+art, personal cheerleader: josh feala
+
+licence:
+this game is hereby released under the mozilla public licence.
+
