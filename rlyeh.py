@@ -26,6 +26,8 @@ cthulhuhit = sf.Sound(sf.SoundBuffer.from_file("cthulhuhit.wav"))
 bg1 = sf.Sprite(sf.Texture.from_file("titlebg.png"))
 bg2 = sf.Sprite(sf.Texture.from_file("gamebg.png"))
 
+logo = sf.Sprite(sf.Texture.from_file("logo.png"))
+
 title1 = sf.Texture.from_file("title1.png") # Actual title part
 title2 = sf.Texture.from_file("title2.png") # Play button
 title3 = sf.Texture.from_file("title3.png") # Credits button
@@ -74,10 +76,11 @@ spawn_clock = sf.Clock()
 cth_dead = False
 enemies_list = []
 spawning = True
-level = 0
-# 0 = logo
-# 1 = title
-# 2 = actual game
+level = -1
+# -1 = logo
+# 0 = title
+# 1 = actual game
+logo_clock = sf.Clock()
 
 while w.is_open:
     if level == 1 and not music_playing:
@@ -113,6 +116,9 @@ while w.is_open:
                         pass
         elif type(e) is sf.KeyEvent and e.pressed and e.code == sf.Keyboard.ESCAPE and level == 3:
             level = 0
+
+    if logo_clock.elapsed_time.seconds >= 5 and level == -1:
+        level = 0
 
     if attacking_clock.elapsed_time.seconds >= 5 and attacking:
         attacking = False
@@ -174,8 +180,10 @@ while w.is_open:
     if cth_dead:
         w.close()
         print "You win!"
-    w.clear()
-    if level == 1:
+    w.clear(sf.Color.RED)
+    if level == -1:
+        w.draw(logo)
+    elif level == 1:
         w.draw(bg2)
         w.draw(player)
         cth.move(sf.Vector2(random.randint(-5, 5), random.randint(-5, 5)))
