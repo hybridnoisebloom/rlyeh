@@ -18,6 +18,8 @@ bgm.loop = True
 bgm.volume = 50
 music_playing = False
 
+xzz = False
+
 startgame = sf.Sound(sf.SoundBuffer.from_file("startgame.wav"))
 cthulhuhit = sf.Sound(sf.SoundBuffer.from_file("cthulhuhit.wav"))
 
@@ -203,11 +205,18 @@ while w.is_open:
         goo_dead = True
 
     if hp <= 0:
+        if not xzz:
+            loser_clock = sf.Clock()
+            xzz = True
+        elif xzz:
+            pass
+        else:
+            pass
         level = 4
         winrar = False
-        loser_clock = sf.Clock()
         if loser_clock.elapsed_time.seconds >= 3:
             w.close()
+
     if goo_dead:
         goo_num = random.randint(0, 4)
         goo_dead = False
